@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import Filtros from "../componentes/personajes/Filters";
 import CharactersGrid from "../componentes/personajes/CharactersGrid";
 import Pagination from "../componentes/paginacion/Pagination";
@@ -11,6 +11,7 @@ import { fetchCharactersThunk } from "../actions/charactersActions";
  * Uso:
  * ``` <Home /> ```
  *
+ * @author Ignacio Aurrecoechea
  * @returns la pagina de inicio
  */
 const Home: FC = () => {
@@ -19,11 +20,18 @@ const Home: FC = () => {
 
   const clearFiltro = useRef<HTMLInputElement>(null)
 
+  /**
+   * Acción on click que limpia el imput en el componente <Filters/> y dispara un dispatch con todos los personajes.
+   * 
+   * @author Ignacio Aurrecoechea
+   * 
+   */
+
   const limpiarFiltro = () => {
     if (clearFiltro.current) {
       clearFiltro.current.value = "";
+      dispatch(fetchCharactersThunk(`https://rickandmortyapi.com/api/character`))
     }
-    dispatch(fetchCharactersThunk(`https://rickandmortyapi.com/api/character`))
   }
 
   return (
@@ -33,7 +41,6 @@ const Home: FC = () => {
         <button className="danger" onClick={limpiarFiltro}>Limpiar filtro</button>
       </div>
       <Filtros clearFiltro={clearFiltro} />
-      {/* <Pagination /> */}
       <Pagination />
       <CharactersGrid />
     </div>

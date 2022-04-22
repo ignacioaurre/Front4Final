@@ -25,7 +25,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ characterData }: CharacterCardP
   const dispatch = useDispatch();
   const goDetail = () => {
     dispatch(selectedCharacterAction(characterData))
-    navigation("detalle/")
+    navigation("/detalle/")
   }
 
   return (

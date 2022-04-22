@@ -1,9 +1,7 @@
 import { FC } from "react";
-import { render } from "react-dom";
 import { useDispatch } from "react-redux";
 import { cleanFav } from "../actions/favouritesAction";
 import CharacterCard from "../componentes/personajes/CharacterCard";
-import CharactersGrid from "../componentes/personajes/CharactersGrid";
 import { useSelector } from "../store";
 import Character from "../types/character.types"
 import "../componentes/personajes/grilla-personajes.css";

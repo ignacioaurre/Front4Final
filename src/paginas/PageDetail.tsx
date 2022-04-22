@@ -13,9 +13,6 @@ import Episode from "../types/episode.types";
  * EL TRABAJO SOBRE ESTE ARCHIVO ES OPCIONAL Y NO ES REQUISITO DE APROBACION
  *
  *
- *
- * Uso:
- * ``` <PageDetail /> ```
  * @author Ignacio Aurrecoechea
  * @returns la pagina de detalle
  */
@@ -24,7 +21,6 @@ const PageDetail: FC = () => {
 
   const dispatch = useDispatch();
   const { selectedCharacter } = useSelector((state) => state.selectedCharacter);
-  console.log(selectedCharacter);
   
 
   const getEpisodes = () => {
@@ -45,7 +41,7 @@ const PageDetail: FC = () => {
   },[])
 
   
-
+ if (!selectedCharacter) return <div className={"detalle-header-texto"} >Seleccione su personaje favorito</div>
   return (
     <div className="container">
       <h3>{selectedCharacter?.name}</h3>
@@ -60,7 +56,7 @@ const PageDetail: FC = () => {
             <p>Planeta: {selectedCharacter?.origin?.name}</p>
             <p>Genero: {selectedCharacter?.gender}</p>
           </div>
-          <FavouriteButton character={selectedCharacter} onClick={() => {}} />
+          <FavouriteButton character={selectedCharacter} />
         </div>
       </div>
       <h4>Lista de episodios donde apareció el personaje</h4>

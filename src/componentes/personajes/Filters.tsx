@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, Ref, RefObject } from "react";
+import { ChangeEvent, FC, RefObject } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCharactersThunk } from "../../actions/charactersActions";
 import "./filtros.css";
@@ -19,6 +19,17 @@ import "./filtros.css";
 
 const Filtros: FC<FiltrosProps> = ({clearFiltro}: FiltrosProps) => {
   const dispatch = useDispatch();
+
+/**
+ * @author Ignacio Aurrecoechea
+ * 
+ * A partir de las 3 letras filtra por nombre de personaje
+ * Si vuelve a 0, muestra todos como al principio.
+ * Esta acción dispara el dispatch
+ *  
+ * @param e event del input 
+ *
+ */
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const currentSearch = e.target.value;
