@@ -23,6 +23,12 @@ const CharacterCard: FC<CharacterCardProps> = ({ characterData }: CharacterCardP
   const navigation = useNavigate()
 
   const dispatch = useDispatch();
+
+  /**
+   * Al seleccionar un personaje, redirige a la ruta de detalle de ese mismo.
+   * 
+   * @author Ignacio Aurrecoechea
+   */
   const goDetail = () => {
     dispatch(selectedCharacterAction(characterData))
     navigation("/detalle/")

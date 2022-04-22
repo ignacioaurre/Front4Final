@@ -19,7 +19,14 @@ import "../componentes/personajes/grilla-personajes.css";
 
 const Favourites: FC = () => {
   const dispatch = useDispatch();
-  const { favoritosMapa } = useSelector((state) => state.favourites);
+  const { favoritosMapa } = useSelector((state) => state.favourites)
+
+  /**
+   * Función que limpia todo el array de favoritos y lo deja vacío.
+   * 
+   * @author Ignacio Aurrecoechea
+   * 
+   */
   const limpiarTodo = () => {
     dispatch(cleanFav());
   }

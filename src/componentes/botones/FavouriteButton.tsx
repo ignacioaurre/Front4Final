@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { matchPath } from "react-router-dom";
 import { toggleFav } from "../../actions/favouritesAction";
@@ -11,12 +11,15 @@ import "./boton-favorito.css";
  *
  * Deberás tipar las propiedades si usas este componente
  * @author Ignacio Aurrecoechea
- * @param {Boolean} isFavourite
- * @param {function} onClick
+ * @param {charater}
  * @returns un JSX element
  */
 
-const FavouriteButton = ({ character }: any) => {
+ export interface FavouritesButtonProps {
+  character: Character;
+}
+
+const FavouriteButton: FC<FavouritesButtonProps> = ({ character }: FavouritesButtonProps) => {
   const mapa = useSelector((state) => state.favourites.favoritosMapa);
   const found = mapa.find(char => char.id === character.id)
   const [isFav, setIsFav] = useState(false)

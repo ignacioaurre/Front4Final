@@ -22,7 +22,13 @@ const PageDetail: FC = () => {
   const dispatch = useDispatch();
   const { selectedCharacter } = useSelector((state) => state.selectedCharacter);
   
-
+/**
+ * Función que toma todos los episodios en los que estuvo involucrado el personaje y devuelve un string con todos los numeros de episodio separados por ",".
+ * Estos quedan listos para realizar el dispatch ya que esos numeros es lo unico que necesita.
+ * 
+ * @author Ignacio Aurrecoechea
+ * @returns string   devuelve un sting con todos los numeros de episodios
+ */
   const getEpisodes = () => {
     const episodeNumbers = selectedCharacter?.episode.map(e => {
       const corte = e.lastIndexOf("/")
