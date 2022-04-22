@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, Ref, RefObject } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCharactersThunk } from "../../actions/charactersActions";
 import "./filtros.css";
@@ -13,7 +13,11 @@ import "./filtros.css";
  * @returns un JSX element
  */
 
-const Filtros: FC = () => {
+ export interface FiltrosProps {
+  clearFiltro: RefObject<HTMLInputElement>;
+}
+
+const Filtros: FC<FiltrosProps> = ({clearFiltro}: FiltrosProps) => {
   const dispatch = useDispatch();
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,10 +28,11 @@ const Filtros: FC = () => {
           `https://rickandmortyapi.com/api/character/?name=${currentSearch}`
         )
       );
-    } else {
+    } 
+    if (currentSearch?.length === 0) {
       dispatch(
         fetchCharactersThunk(
-          `https://rickandmortyapi.com/api/character/?name=${currentSearch}`
+          "https://rickandmortyapi.com/api/character/"
         )
       );
     }
@@ -37,6 +42,7 @@ const Filtros: FC = () => {
       <label htmlFor="nombre">Filtrar por nombre:</label>
       <input
         type="text"
+        ref = {clearFiltro}
         placeholder="Rick, Morty, Beth, Alien, ...etc"
         name="nombre"
         onChange={onChange}

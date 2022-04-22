@@ -16,7 +16,7 @@ import Episode from "../types/episode.types";
  *
  * Uso:
  * ``` <PageDetail /> ```
- *
+ * @author Ignacio Aurrecoechea
  * @returns la pagina de detalle
  */
 const PageDetail: FC = () => {
@@ -24,15 +24,14 @@ const PageDetail: FC = () => {
 
   const dispatch = useDispatch();
   const { selectedCharacter } = useSelector((state) => state.selectedCharacter);
-  console.log(selectedCharacter)
+  console.log(selectedCharacter);
+  
 
   const getEpisodes = () => {
     const episodeNumbers = selectedCharacter?.episode.map(e => {
       const corte = e.lastIndexOf("/")
-      console.log(e.substring(corte+1))
       return e.substring(corte+1);
     })
-    console.log(episodeNumbers?.join(","));
     return episodeNumbers?.join(",")
   }
 
@@ -41,8 +40,7 @@ const PageDetail: FC = () => {
   useEffect(() => {
     const episode = getEpisodes()
     if (episode){
-      const result = getEpisodesAPI(episode);
-      console.log(result)
+      getEpisodesAPI(episode).then(episodios => setEpisodes(episodios))
     }
   },[])
 
@@ -50,24 +48,24 @@ const PageDetail: FC = () => {
 
   return (
     <div className="container">
-      <h3>Rick Sanchez</h3>
+      <h3>{selectedCharacter?.name}</h3>
       <div className={"detalle"}>
         <div className={"detalle-header"}>
           <img
-            src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+            src={selectedCharacter?.image}
             alt="Rick Sanchez"
           />
           <div className={"detalle-header-texto"}>
-            <p>Rick Sanchez</p>
-            <p>Planeta: Earth</p>
-            <p>Genero: Male</p>
+            <p>{selectedCharacter?.name}</p>
+            <p>Planeta: {selectedCharacter?.origin?.name}</p>
+            <p>Genero: {selectedCharacter?.gender}</p>
           </div>
           <FavouriteButton character={selectedCharacter} onClick={() => {}} />
         </div>
       </div>
       <h4>Lista de episodios donde apareció el personaje</h4>
       <div className={"episodios-grilla"}>
-        {episodes.map(e => <ChapterCard />)}
+        {episodes.map(e => <ChapterCard key={e.id} episodio={e.episode} airDate={e.air_date} name={e.name}  />)}
       </div>
     </div>
   );

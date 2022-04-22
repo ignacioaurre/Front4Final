@@ -18,7 +18,7 @@ export interface CharacterCardProps {
  *
  * @returns un JSX element
  */
-const CharacterCard = ({ characterData }: CharacterCardProps) => {
+const CharacterCard: FC<CharacterCardProps> = ({ characterData }: CharacterCardProps) => {
 
   const navigation = useNavigate()
 

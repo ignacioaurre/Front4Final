@@ -10,8 +10,12 @@ export const getCharactersAPI = async (name: string): Promise<DataResult> => {
 
 export const getEpisodesAPI = async (episodes : string ): Promise<Episode []> => {
   const response = await fetch("https://rickandmortyapi.com/api/episode/" + episodes)
-  const data = response.json()
-  console.log(data);
+  const data = await response.json()
   
-  return data;
+  if(data.id) {
+    let episodesAux: Episode[] = []
+    episodesAux.push(data)
+    return episodesAux
+  } else 
+    return data;
 }
