@@ -6,10 +6,10 @@ import {
 } from "react-redux";
 import "./grilla-personajes.css";
 import CharacterCard from "./CharacterCard";
-import { IRootState } from "../../store";
+import { IRootState, useSelector } from "../../store";
 import Character from "../../types/character.types";
 import { fetchCharactersThunk } from "../../actions/charactersActions";
-export const useSelector: TypedUseSelectorHook<IRootState> = useReduxSelector;
+// export const useSelector: TypedUseSelectorHook<IRootState> = useReduxSelector;
 
 /**
  * Grilla de personajes para la pagina de inicio

@@ -9,12 +9,14 @@ import {
 import thunk from "redux-thunk";
 import charactersReducer from "../reducers/charactersReducer";
 import favouritesCharactersReducer from "../reducers/favouritesCharactersReducer";
+import selectedCharacterReducer from "../reducers/selectedCharacterReducer";
 
 // import characterReducer from "../reducers/characterReducer";
 
 const rootReducer = combineReducers({
   data: charactersReducer,
   favourites: favouritesCharactersReducer,
+  selectedCharacter: selectedCharacterReducer,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

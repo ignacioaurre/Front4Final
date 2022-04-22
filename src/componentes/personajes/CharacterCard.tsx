@@ -1,7 +1,10 @@
 import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { selectedCharacterAction } from "../../actions/selectedCharacterActions";
 import Character from "../../types/character.types";
 import FavouriteButton from "./../botones/FavouriteButton";
 import "./tarjeta-personaje.css";
+import { useNavigate } from "react-router-dom";
 
 export interface CharacterCardProps {
   characterData: Character;
@@ -16,11 +19,20 @@ export interface CharacterCardProps {
  * @returns un JSX element
  */
 const CharacterCard = ({ characterData }: CharacterCardProps) => {
+
+  const navigation = useNavigate()
+
+  const dispatch = useDispatch();
+  const goDetail = () => {
+    dispatch(selectedCharacterAction(characterData))
+    navigation("detalle/")
+  }
+
   return (
-    <div className="tarjeta-personaje">
-      <img src={characterData.image} alt="Rick Sanchez" />
+    <div className="tarjeta-personaje" >
+      <img src={characterData.image} alt="Rick Sanchez" onClick={goDetail} style={{cursor: "pointer"}}/>
       <div className="tarjeta-personaje-body">
-        <span>{characterData.name}</span>
+        <span onClick={goDetail} style={{cursor: "pointer"}}>{characterData.name}</span>
         <FavouriteButton character={characterData} />
       </div>
     </div>

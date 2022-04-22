@@ -1,7 +1,11 @@
 import "./Detalle.css";
 import ChapterCard from "../componentes/episodios/ChapterCard";
 import FavouriteButton from "../componentes/botones/FavouriteButton";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { useSelector } from "../store";
+import { useDispatch } from "react-redux";
+import { getEpisodesAPI } from "../services/characters.services";
+import Episode from "../types/episode.types";
 
 /**
  * Esta es la pagina de detalle. Aqui se puede mostrar la vista sobre el personaje seleccionado junto con la lista de episodios en los que aparece
@@ -16,6 +20,34 @@ import { FC } from "react";
  * @returns la pagina de detalle
  */
 const PageDetail: FC = () => {
+
+
+  const dispatch = useDispatch();
+  const { selectedCharacter } = useSelector((state) => state.selectedCharacter);
+  console.log(selectedCharacter)
+
+  const getEpisodes = () => {
+    const episodeNumbers = selectedCharacter?.episode.map(e => {
+      const corte = e.lastIndexOf("/")
+      console.log(e.substring(corte+1))
+      return e.substring(corte+1);
+    })
+    console.log(episodeNumbers?.join(","));
+    return episodeNumbers?.join(",")
+  }
+
+  const [episodes, setEpisodes] = useState<Episode []>([])
+
+  useEffect(() => {
+    const episode = getEpisodes()
+    if (episode){
+      const result = getEpisodesAPI(episode);
+      console.log(result)
+    }
+  },[])
+
+  
+
   return (
     <div className="container">
       <h3>Rick Sanchez</h3>
@@ -30,14 +62,12 @@ const PageDetail: FC = () => {
             <p>Planeta: Earth</p>
             <p>Genero: Male</p>
           </div>
-          <FavouriteButton isFavourite={false} onClick={() => {}} />
+          <FavouriteButton character={selectedCharacter} onClick={() => {}} />
         </div>
       </div>
       <h4>Lista de episodios donde apareció el personaje</h4>
       <div className={"episodios-grilla"}>
-        <ChapterCard />
-        <ChapterCard />
-        <ChapterCard />
+        {episodes.map(e => <ChapterCard />)}
       </div>
     </div>
   );
